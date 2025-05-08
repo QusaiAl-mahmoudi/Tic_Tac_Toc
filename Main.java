@@ -109,13 +109,14 @@ public class Main {
     public static void playerTurn(char board[][],Scanner sc){
         int userInput;
         while(true){
+         System.out.println(message);
+            printBoard(board);
         System.out.println("Where would you like to play :(1-9)");
          userInput = sc.nextInt();
               if( isValidMove(board, userInput))
                 break;
             else 
-                System.out.println(userInput+" is not a valid move !");
-      
+                message = " 《《 This Place Is Reserved ! 》》";
         }
          placeMove(board,userInput,'x');
     
@@ -133,6 +134,10 @@ public class Main {
         placeMove(board,computerPlay,'o');
         
     }
+ public static void clear(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+ }
     //main method
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -141,16 +146,19 @@ public class Main {
             for(int j= 0; j<board[0].length;j++)
                 board[i][j] =' ';
         }
-        printBoard(board);
+         
         while(true){
             playerTurn(board,sc);
             if(isGameFinshed(board))
                 break;
+              message = "《《 Start To Play 》》";
+             System.out.println( message );
+            clear();
              printBoard(board);
              computerTurn(board);
             if(isGameFinshed(board))
                 break;
-             printBoard(board);
+            clear();
          }
     }
 }
